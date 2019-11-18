@@ -1,8 +1,15 @@
 import React, { Component } from 'react';
 import Posts from '../Posts/Posts';
-import NewPost from '../NewPost/NewPost';
+// import NewPost from '../NewPost/NewPost';
 import {Route, NavLink, Switch, Redirect} from 'react-router-dom';//navLink so i can apply some styling to the links, it adds a class active to <a> element
 import './Blog.css';
+
+import asyncComponent from '../../hoc/asyncComponent';
+
+const AsyncNewPost = asyncComponent(() =>{
+    return import('../NewPost/NewPost');
+})
+
 
 class Blog extends Component {
 
@@ -34,7 +41,7 @@ class Blog extends Component {
                 <Route path="/" render={() =><h1>Home2</h1>} />*/}
                 
                 <Switch>{/* to load only one route in a time , bqz the /new-post is a valide route for the flexible route /:id as result th two routes get loaded on click on new Post*/}
-                    {this.state.auth ? <Route path="/new-post" component={NewPost} /> : null}
+                    {this.state.auth ? <Route path="/new-post" component={AsyncNewPost} /> : null}
                     <Route path="/posts" component={Posts} />
                     <Route render={()=> <h1>Not Found</h1>} />
                     {/*<Redirect from='/' to='/posts' />*/}

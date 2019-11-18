@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 
 const asynComponent = (importedComponent) =>{
     return class extends Component {
-
         state={
             component: null
         }
