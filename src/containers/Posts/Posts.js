@@ -2,7 +2,9 @@ import React , {Component} from 'react';
 import Post from '../../components/Post/Post';
 import './Posts.css';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+//import { Link } from 'react-router-dom';
+import {Route} from 'react-router-dom';
+import FullPost from '../FullPost/FullPost';
 
 class Posts extends Component {
     
@@ -29,7 +31,8 @@ class Posts extends Component {
     }
 
     postSelectionHandler = (id) =>{
-        this.props.history.push({pathname: '/'+id});
+        console.log(this.props.match.url+ '/'+id);
+        this.props.history.push({pathname: this.props.match.url+ '/'+id});
         //this.props.history.push('/'+id);
     }
 
@@ -52,9 +55,12 @@ class Posts extends Component {
                 })
         }
         return (
-            <section className="Posts">
-                {posts} 
-            </section>
+            <div>
+                <section className="Posts">
+                    {posts} 
+                </section>
+                <Route path={this.props.match.url+'/:id'} exact  component={FullPost} />
+            </div>
         );
     };
 }
